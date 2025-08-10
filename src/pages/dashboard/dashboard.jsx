@@ -1,0 +1,16 @@
+import { Helmet } from 'react-helmet-async';
+
+import OverviewAppView from 'src/sections/dashboard/view';
+// ----------------------------------------------------------------------
+
+export default function DashboardPage() {
+  return (
+    <>
+      <Helmet>
+        <title> Dashboard</title>
+      </Helmet>
+
+      <OverviewAppView />
+    </>
+  );
+}
