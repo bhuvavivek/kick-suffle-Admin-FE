@@ -4,7 +4,7 @@ import UserListView from 'src/sections/user/view';
 
 // ----------------------------------------------------------------------
 
-export default function Page() {
+export default function UserPage() {
   return (
     <>
       <Helmet>

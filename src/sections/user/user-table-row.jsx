@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types';
 
 import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import ListItemText from '@mui/material/ListItemText';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import Label from 'src/components/label';
+// import Label from 'src/components/label';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 
 
 // ----------------------------------------------------------------------
 
 export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
-  const { name, avatarUrl, company, role, status, email, phoneNumber } = row;
+  const { name,  email, phoneNumber } = row;
 
   const confirm = useBoolean();
 
@@ -27,12 +27,27 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
     <>
       <TableRow hover selected={selected}>
 
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>vivek521</TableCell>
         <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar alt={name} src={avatarUrl} sx={{ mr: 2 }} />
+          {/* <Avatar alt={name} src={avatarUrl} sx={{ mr: 2 }} /> */}
 
           <ListItemText
             primary={name}
-            secondary={email}
+            // secondary={email}
+            primaryTypographyProps={{ typography: 'body2' }}
+            secondaryTypographyProps={{
+              component: 'span',
+              color: 'text.disabled',
+            }}
+          />
+
+        </TableCell>
+
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{phoneNumber}</TableCell>
+
+        <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
+          <ListItemText
+            primary={email}
             primaryTypographyProps={{ typography: 'body2' }}
             secondaryTypographyProps={{
               component: 'span',
@@ -40,14 +55,11 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
             }}
           />
         </TableCell>
+        {/* <TableCell sx={{ whiteSpace: 'nowrap' }}>{company}</TableCell> */}
 
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{phoneNumber}</TableCell>
+        {/* <TableCell sx={{ whiteSpace: 'nowrap' }}>{role}</TableCell> */}
 
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{company}</TableCell>
-
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{role}</TableCell>
-
-        <TableCell>
+        {/* <TableCell>
           <Label
             variant="soft"
             color={
@@ -59,7 +71,7 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
           >
             {status}
           </Label>
-        </TableCell>
+        </TableCell> */}
 
         {/* <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
           <Tooltip title="Quick Edit" placement="top" arrow>
