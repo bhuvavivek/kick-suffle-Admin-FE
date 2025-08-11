@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 
-import ThreeView from 'src/sections/three/view';
+import WithdrawalListView from 'src/sections/withdrawals/view';
 
 // ----------------------------------------------------------------------
 
-export default function Page() {
+export default function WithdrawalsPage() {
   return (
     <>
       <Helmet>
         <title> Dashboard: Withdrawals</title>
       </Helmet>
 
-      <ThreeView />
+      <WithdrawalListView />
     </>
   );
 }

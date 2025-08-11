@@ -10,7 +10,7 @@ import { LoadingScreen } from 'src/components/loading-screen';
 
 const IndexPage = lazy(() => import('src/pages/dashboard/dashboard'));
 const UserPage = lazy(() => import('src/pages/dashboard/user/list'));
-const WithdrawalsPage = lazy(() => import('src/pages/dashboard/withdrawals'));
+const WithdrawalsPage = lazy(() => import('src/pages/dashboard/withdrawal/list'));
 const TransactionsPage = lazy(() => import('src/pages/dashboard/transactions'));
 
 
