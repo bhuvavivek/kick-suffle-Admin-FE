@@ -1,5 +1,5 @@
 import isEqual from 'lodash/isEqual';
-import { useState, useCallback } from 'react';
+import { useState,useEffect, useCallback } from 'react';
 
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -16,6 +16,7 @@ import { useRouter } from 'src/routes/hooks';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
+import { useGetUsers } from 'src/api/user';
 import { _roles, _userList, USER_STATUS_OPTIONS } from 'src/_mock';
 
 import Label from 'src/components/label';
@@ -68,9 +69,16 @@ export default function UserListView() {
 
   const confirm = useBoolean();
 
-  const [tableData, setTableData] = useState(_userList);
+  const {users} = useGetUsers();
+
+  const [tableData, setTableData] = useState(users);
 
   const [filters, setFilters] = useState(defaultFilters);
+
+  useEffect(()=>{
+  setTableData(users)
+  },[users])
+
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -138,6 +146,8 @@ export default function UserListView() {
   const handleResetFilters = useCallback(() => {
     setFilters(defaultFilters);
   }, []);
+
+
 
   return (
     <>

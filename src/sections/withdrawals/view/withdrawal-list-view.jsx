@@ -1,5 +1,5 @@
 import isEqual from 'lodash/isEqual';
-import { useState, useCallback } from 'react';
+import { useState,useEffect, useCallback } from 'react';
 
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -16,7 +16,8 @@ import { useRouter } from 'src/routes/hooks';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { _roles, _userList, USER_STATUS_OPTIONS } from 'src/_mock';
+import { useGetTransactions } from 'src/api/transaction';
+import { _roles, Transaction_STATUS_OPTIONS } from 'src/_mock';
 
 import Label from 'src/components/label';
 import Scrollbar from 'src/components/scrollbar';
@@ -39,7 +40,7 @@ import WithdrawalTableFiltersResult from '../withdrawal-table-filters-result';
 
 // ----------------------------------------------------------------------
 
-const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...USER_STATUS_OPTIONS];
+const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...Transaction_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
   { id: 'username', label: 'Username' },
@@ -68,10 +69,18 @@ export default function UserListView() {
 
   const confirm = useBoolean();
 
-  const [tableData, setTableData] = useState(_userList);
-
   const [filters, setFilters] = useState(defaultFilters);
 
+  const { transactionsResults } = useGetTransactions({
+    transaction_type: "WITHDRAWAL",
+    status: filters.status === 'all' ? 'PENDING,COMPLETED,CANCELLED' : filters.status
+  });
+
+  const [tableData, setTableData] = useState(transactionsResults);
+
+  useEffect(()=>{
+    setTableData(transactionsResults);
+  },[transactionsResults]);
   const dataFiltered = applyFilter({
     inputData: tableData,
     comparator: getComparator(table.order, table.orderBy),
@@ -191,16 +200,16 @@ export default function UserListView() {
                       'default'
                     }
                   >
-                    {tab.value === 'all' && _userList.length}
+                    {tab.value === 'all' && transactionsResults.length}
                     {tab.value === 'active' &&
-                      _userList.filter((user) => user.status === 'active').length}
+                      transactionsResults.filter((user) => user.status === 'active').length}
 
                     {tab.value === 'pending' &&
-                      _userList.filter((user) => user.status === 'pending').length}
+                      transactionsResults.filter((user) => user.status === 'pending').length}
                     {tab.value === 'banned' &&
-                      _userList.filter((user) => user.status === 'banned').length}
+                      transactionsResults.filter((user) => user.status === 'banned').length}
                     {tab.value === 'rejected' &&
-                      _userList.filter((user) => user.status === 'rejected').length}
+                      transactionsResults.filter((user) => user.status === 'rejected').length}
                   </Label>
                 }
               />

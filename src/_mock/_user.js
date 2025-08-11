@@ -11,6 +11,13 @@ export const USER_STATUS_OPTIONS = [
   { value: 'rejected', label: 'Rejected' },
 ];
 
+export const Transaction_STATUS_OPTIONS = [
+  { value: 'PENDING', label: 'Pending' },
+  { value: 'COMPLETED', label: 'Completed' },
+  // { value: 'FAILED', label: 'Failed' },
+  { value: 'CANCELLED', label: 'Cancelled' },
+];
+
 export const _userAbout = {
   id: _mock.id(1),
   role: _mock.role(1),

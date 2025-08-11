@@ -50,4 +50,11 @@ export const endpoints = {
     details: '/api/product/details',
     search: '/api/product/search',
   },
+  user:{
+    list:'/api/admin/users'
+  },
+  transactions:{
+    list:'/api/admin/transactions/history',
+    withdrawal_action:(id)=>`/api/admin/transactions/withdrawals/${id}/action`
+  }
 };

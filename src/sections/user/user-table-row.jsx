@@ -15,7 +15,7 @@ import { ConfirmDialog } from 'src/components/custom-dialog';
 // ----------------------------------------------------------------------
 
 export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
-  const { name,  email, phoneNumber } = row;
+  const { username, firstName, lastName,  email } = row;
 
   const confirm = useBoolean();
 
@@ -27,12 +27,12 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
     <>
       <TableRow hover selected={selected}>
 
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>vivek521</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{username}</TableCell>
         <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
           {/* <Avatar alt={name} src={avatarUrl} sx={{ mr: 2 }} /> */}
 
           <ListItemText
-            primary={name}
+            primary={`${firstName} ${lastName}`}
             // secondary={email}
             primaryTypographyProps={{ typography: 'body2' }}
             secondaryTypographyProps={{
@@ -43,7 +43,7 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
 
         </TableCell>
 
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{phoneNumber}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>+91 9824298765</TableCell>
 
         <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
           <ListItemText
