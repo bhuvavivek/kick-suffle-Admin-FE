@@ -21,7 +21,7 @@ export const paths = {
     root: ROOTS.DASHBOARD,
     user: `${ROOTS.DASHBOARD}/user`,
     withdrawals: `${ROOTS.DASHBOARD}/withdrawals`,
-    transactions: `${ROOTS.DASHBOARD}/transactions`,
+    deposits: `${ROOTS.DASHBOARD}/deposits`,
     group: {
       root: `${ROOTS.DASHBOARD}/group`,
       five: `${ROOTS.DASHBOARD}/group/five`,

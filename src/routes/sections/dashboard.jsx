@@ -11,7 +11,6 @@ import { LoadingScreen } from 'src/components/loading-screen';
 const IndexPage = lazy(() => import('src/pages/dashboard/dashboard'));
 const UserPage = lazy(() => import('src/pages/dashboard/user/list'));
 const WithdrawalsPage = lazy(() => import('src/pages/dashboard/withdrawal/list'));
-const TransactionsPage = lazy(() => import('src/pages/dashboard/transactions'));
 
 
 // ----------------------------------------------------------------------
@@ -31,8 +30,8 @@ export const dashboardRoutes = [
     children: [
       { element: <IndexPage />, index: true },
       { path: 'user', element: <UserPage /> },
-      { path: 'withdrawals', element: <WithdrawalsPage /> },
-      { path: 'transactions', element: <TransactionsPage /> },
+      { path: 'withdrawals', element: <WithdrawalsPage withdrawals/> },
+      { path: 'deposits', element: <WithdrawalsPage withdrawals={false} /> },
 
       // {
       //   path: 'group',

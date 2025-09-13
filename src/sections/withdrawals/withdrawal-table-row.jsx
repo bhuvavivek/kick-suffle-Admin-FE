@@ -8,6 +8,7 @@ import { Stack, Typography } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
+import { fDate } from 'src/utils/format-time';
 import { fCurrency } from 'src/utils/format-number';
 import axiosInstance, { endpoints } from 'src/utils/axios';
 
@@ -19,8 +20,8 @@ import { ConfirmDialog } from 'src/components/custom-dialog';
 
 
 
-export default function WithdrawalTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow , refetch}) {
-  const {id, status , user , amount , paymentMethod , paymentDetails} = row;
+export default function WithdrawalTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow , refetch,withdrawal}) {
+  const {id, status , user , amount , paymentMethod , paymentDetails , createdAt} = row;
   
 
   const confirm = useBoolean();
@@ -52,12 +53,13 @@ export default function WithdrawalTableRow({ row, selected, onEditRow, onSelectR
       <TableRow hover selected={selected}>
 
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{user?.username}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{fDate(createdAt)}</TableCell>
 
 
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{fCurrency(amount)}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{fCurrency(payableAmount)}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>
+      { withdrawal && <TableCell sx={{ whiteSpace: 'nowrap' }}>{fCurrency(payableAmount)}</TableCell>}
 
+      { withdrawal && <TableCell sx={{ whiteSpace: 'nowrap' }}>
           {paymentMethod === 'BANK_TRANSFER' ?
           <>
           <Typography variant="body2">{paymentDetails?.bankAccount}</Typography>
@@ -67,9 +69,9 @@ export default function WithdrawalTableRow({ row, selected, onEditRow, onSelectR
           <Typography variant="body2">{paymentDetails?.upiId}</Typography>
           }
 
-        </TableCell>
+        </TableCell>}
 
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>
+      {  withdrawal &&  <TableCell sx={{ whiteSpace: 'nowrap' }}>
           <Stack direction="row" spacing={1}>
             <Button onClick={() => handleWithdrawalRequest(id,'COMPLETED')} variant="contained" color="success" size="small" disabled={status === 'COMPLETED' || status === 'CANCELLED'}>
               Accept
@@ -78,7 +80,7 @@ export default function WithdrawalTableRow({ row, selected, onEditRow, onSelectR
               Reject
             </Button>
           </Stack>
-        </TableCell>
+        </TableCell> }
 
         <TableCell>
           <Label
@@ -117,4 +119,5 @@ WithdrawalTableRow.propTypes = {
   refetch: PropTypes.func,
   row: PropTypes.object,
   selected: PropTypes.bool,
+  withdrawal: PropTypes.bool
 };

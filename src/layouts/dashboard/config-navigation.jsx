@@ -59,8 +59,8 @@ export function useNavData() {
             icon: ICONS.order,
           },
         {
-            title: 'Transactions',
-            path: paths.dashboard.transactions,
+            title: 'Deposits',
+            path: paths.dashboard.deposits,
             icon: ICONS.invoice,
           },
         ],

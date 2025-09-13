@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import { useState,useEffect, useCallback } from 'react';
 
@@ -42,13 +43,10 @@ import WithdrawalTableFiltersResult from '../withdrawal-table-filters-result';
 
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...Transaction_STATUS_OPTIONS];
 
-const TABLE_HEAD = [
+const baseTableHead  = [
   { id: 'username', label: 'Username' },
+  {id:'createdAt',label:"Date"},
   { id: 'amount', label: 'Amount' },
-  { id: 'payable amount', label: 'Payable Amount'},
-  { id: 'payment detail', label: 'Payment Detail', width: 220 },
-  { id: 'action', label: 'Action', width: 180 },
-  { id: 'status', label: 'Status', width: 100 },
   // { id: '', width: 88 },
 ];
 
@@ -60,7 +58,18 @@ const defaultFilters = {
 
 // ----------------------------------------------------------------------
 
-export default function UserListView() {
+export default function WithdrawalListView({withdrawal}) {
+
+  const TABLE_HEAD = withdrawal
+    ? [
+        ...baseTableHead,
+        { id: 'payable amount', label: 'Payable Amount'},
+        { id: 'payment detail', label: 'Payment Detail', width: 220 },
+        { id: 'action', label: 'Action', width: 180 },
+        { id: 'status', label: 'Status', width: 100 },
+      ]
+    : [...baseTableHead,{ id: 'status', label: 'Status' }];
+  
   const table = useTable();
 
   const settings = useSettingsContext();
@@ -72,7 +81,7 @@ export default function UserListView() {
   const [filters, setFilters] = useState(defaultFilters);
 
   const { transactionsResults } = useGetTransactions({
-    transaction_type: "WITHDRAWAL",
+    transaction_type: withdrawal ? "WITHDRAWAL" : "PAYMENT_ORDER,PAYMENT_SUCCESS,PAYMENT_FAILED",
     status: filters.status === 'all' ? 'PENDING,COMPLETED,CANCELLED' : filters.status
   });
 
@@ -155,7 +164,7 @@ export default function UserListView() {
           heading="List"
           links={[
             { name: 'Dashboard', href: paths.dashboard.root },
-            { name: 'Withdrawals', href: paths.dashboard.withdrawals },
+            { name: withdrawal ? 'Withdrawals' : 'Deposit', href: paths.dashboard.withdrawals },
             { name: 'List' },
           ]}
           // action={
@@ -263,6 +272,7 @@ export default function UserListView() {
                         onSelectRow={() => table.onSelectRow(row.id)}
                         onDeleteRow={() => handleDeleteRow(row.id)}
                         onEditRow={() => handleEditRow(row.id)}
+                        withdrawal={withdrawal}
                       />
                     ))}
 
@@ -315,6 +325,11 @@ export default function UserListView() {
     </>
   );
 }
+
+WithdrawalListView.propTypes = {
+  // withdrawal: PropTypes.bool,
+  withdrawal: PropTypes.bool,
+};
 
 // ----------------------------------------------------------------------
 
