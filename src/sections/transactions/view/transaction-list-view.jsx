@@ -53,7 +53,7 @@ const TABLE_HEAD = [
 ];
 
 const defaultFilters = {
-  name: '',
+  username: '',
   role: [],
   status: 'all',
 };
@@ -71,7 +71,7 @@ export default function TransactionListView() {
 
   const [filters, setFilters] = useState(defaultFilters);
 
-  const { transactionsResults } = useGetTransactions({
+  const { transactionsResults , refetch } = useGetTransactions({
     transaction_type: "WITHDRAWAL,DEPOSIT,BET,WIN,PAYMENT_ORDER,PAYMENT_SUCCESS,PAYMENT_FAILED,KC_COIN_PURCHASE,KC_COIN_WITHDRAWAL",
     status: filters.status === 'all' ? 'PENDING,COMPLETED,FAILED,CANCELLED' : filters.status
   });
@@ -263,6 +263,7 @@ export default function TransactionListView() {
                         onSelectRow={() => table.onSelectRow(row.id)}
                         onDeleteRow={() => handleDeleteRow(row.id)}
                         onEditRow={() => handleEditRow(row.id)}
+                        refetch={refetch}
                       />
                     ))}
 
@@ -319,7 +320,7 @@ export default function TransactionListView() {
 // ----------------------------------------------------------------------
 
 function applyFilter({ inputData, comparator, filters }) {
-  const { name, status, role } = filters;
+  const { username, status, role } = filters;
 
   const stabilizedThis = inputData.map((el, index) => [el, index]);
 
@@ -331,9 +332,9 @@ function applyFilter({ inputData, comparator, filters }) {
 
   inputData = stabilizedThis.map((el) => el[0]);
 
-  if (name) {
+  if (username) {
     inputData = inputData.filter(
-      (user) => user.name.toLowerCase().indexOf(name.toLowerCase()) !== -1
+      (user) => user.username.toLowerCase().indexOf(username?.toLowerCase()) !== -1
     );
   }
 

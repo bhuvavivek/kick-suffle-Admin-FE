@@ -53,7 +53,7 @@ const TABLE_HEAD = [
 ];
 
 const defaultFilters = {
-  name: '',
+  username: '',
   role: [],
   status: 'all',
 };
@@ -319,7 +319,7 @@ export default function UserListView() {
 // ----------------------------------------------------------------------
 
 function applyFilter({ inputData, comparator, filters }) {
-  const { name, status, role } = filters;
+  const { username, status, role } = filters;
 
   const stabilizedThis = inputData.map((el, index) => [el, index]);
 
@@ -331,9 +331,9 @@ function applyFilter({ inputData, comparator, filters }) {
 
   inputData = stabilizedThis.map((el) => el[0]);
 
-  if (name) {
+  if (username) {
     inputData = inputData.filter(
-      (user) => user.name.toLowerCase().indexOf(name.toLowerCase()) !== -1
+      (user) => user.user?.username?.toLowerCase().indexOf(username.toLowerCase()) !== -1
     );
   }
 

@@ -8,7 +8,7 @@ import { fetcher, endpoints } from 'src/utils/axios';
 export function useGetTransactions(filters) {
   const URL = filters ? [endpoints.transactions.list, { params:  filters  }] : '';
 
-  const { data, isLoading, error, isValidating } = useSWR(URL, fetcher, {
+  const { data, isLoading, error, isValidating , mutate } = useSWR(URL, fetcher, {
     keepPreviousData: true,
   });
 
@@ -19,8 +19,9 @@ export function useGetTransactions(filters) {
       transactionsError: error,
       transactionsValidating: isValidating,
       transactionsEmpty: !isLoading && !data?.data.length,
+      refetch: () => mutate(),
     }),
-    [data?.data, error, isLoading, isValidating]
+    [data?.data, error, isLoading, isValidating , mutate]
   );
 
   return memoizedValue;

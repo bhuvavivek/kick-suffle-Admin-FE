@@ -19,8 +19,9 @@ import { ConfirmDialog } from 'src/components/custom-dialog';
 
 
 
-export default function WithdrawalTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
+export default function WithdrawalTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow , refetch}) {
   const {id, status , user , amount , paymentMethod , paymentDetails} = row;
+  
 
   const confirm = useBoolean();
   const payableAmount = amount - (amount * 0.05) // Assuming a 5% fee for the withdrawal
@@ -37,6 +38,7 @@ export default function WithdrawalTableRow({ row, selected, onEditRow, onSelectR
 
     if (response.status === 200){
       console.log('Withdrawal status updated successfully');
+      refetch();
     } else {
       console.error('Failed to update withdrawal status');
     }
@@ -69,10 +71,10 @@ export default function WithdrawalTableRow({ row, selected, onEditRow, onSelectR
 
         <TableCell sx={{ whiteSpace: 'nowrap' }}>
           <Stack direction="row" spacing={1}>
-            <Button onClick={() => handleWithdrawalRequest(id,'COMPLETED')} variant="contained" color="success" size="small">
+            <Button onClick={() => handleWithdrawalRequest(id,'COMPLETED')} variant="contained" color="success" size="small" disabled={status === 'COMPLETED' || status === 'CANCELLED'}>
               Accept
             </Button>
-            <Button onClick={() => handleWithdrawalRequest(id,'CANCELLED')} variant="outlined" color="error" size="small">
+            <Button onClick={() => handleWithdrawalRequest(id,'CANCELLED')} variant="outlined" color="error" size="small" disabled={status === 'CANCELLED' || status === 'COMPLETED'}>
               Reject
             </Button>
           </Stack>
@@ -82,9 +84,9 @@ export default function WithdrawalTableRow({ row, selected, onEditRow, onSelectR
           <Label
             variant="soft"
             color={
-              (status === 'active' && 'success') ||
-              (status === 'pending' && 'warning') ||
-              (status === 'banned' && 'error') ||
+              (status === 'COMPLETED' && 'success') ||
+              (status === 'COMPLETED' && 'warning') ||
+              (status === 'PENDING' && 'error') ||
               'default'
             }
           >
@@ -112,6 +114,7 @@ WithdrawalTableRow.propTypes = {
   onDeleteRow: PropTypes.func,
   onEditRow: PropTypes.func,
   onSelectRow: PropTypes.func,
+  refetch: PropTypes.func,
   row: PropTypes.object,
   selected: PropTypes.bool,
 };

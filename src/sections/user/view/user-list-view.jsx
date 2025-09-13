@@ -45,6 +45,7 @@ const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...USER_STATUS_OPTIONS];
 const TABLE_HEAD = [
   { id: 'username', label: 'Username' },
   { id: 'name', label: 'Name' },
+  {id:'balance', label:'Balance'},
   { id: 'phoneNumber', label: 'Phone Number'},
   { id: 'email', label: 'Email', width: 220 },
   // { id: 'role', label: 'Role', width: 180 },

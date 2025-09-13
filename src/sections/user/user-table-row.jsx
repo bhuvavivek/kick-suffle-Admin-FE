@@ -15,7 +15,7 @@ import { ConfirmDialog } from 'src/components/custom-dialog';
 // ----------------------------------------------------------------------
 
 export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
-  const { username, firstName, lastName,  email } = row;
+  const { username, firstName, lastName,  email , phone , balance } = row;
 
   const confirm = useBoolean();
 
@@ -42,8 +42,9 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
           />
 
         </TableCell>
-
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>+91 9824298765</TableCell>
+        
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{balance}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{phone}</TableCell>
 
         <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
           <ListItemText

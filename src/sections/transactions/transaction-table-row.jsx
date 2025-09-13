@@ -28,8 +28,6 @@ export default function TransactionTableRow({ row, selected, onEditRow, onSelect
 
   // const popover = usePopover();
 
-
-
   return (
     <>
       <TableRow hover selected={selected}>

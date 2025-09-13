@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import { useCallback } from 'react';
 
 import Stack from '@mui/material/Stack';
-import Select from '@mui/material/Select';
+// import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import Checkbox from '@mui/material/Checkbox';
+// import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-import OutlinedInput from '@mui/material/OutlinedInput';
+// import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import Iconify from 'src/components/iconify';
@@ -31,15 +31,15 @@ export default function UserTableToolbar({
     [onFilters]
   );
 
-  const handleFilterRole = useCallback(
-    (event) => {
-      onFilters(
-        'role',
-        typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value
-      );
-    },
-    [onFilters]
-  );
+  // const handleFilterRole = useCallback(
+  //   (event) => {
+  //     onFilters(
+  //       'role',
+  //       typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value
+  //     );
+  //   },
+  //   [onFilters]
+  // );
 
   return (
     <>
@@ -63,7 +63,7 @@ export default function UserTableToolbar({
         >
           <InputLabel>Role</InputLabel>
 
-          <Select
+          {/* <Select
             multiple
             value={filters.role}
             onChange={handleFilterRole}
@@ -81,7 +81,7 @@ export default function UserTableToolbar({
                 {option}
               </MenuItem>
             ))}
-          </Select>
+          </Select> */}
         </FormControl>
 
         <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
