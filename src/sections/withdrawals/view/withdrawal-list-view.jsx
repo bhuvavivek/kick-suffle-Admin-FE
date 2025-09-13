@@ -80,7 +80,7 @@ export default function WithdrawalListView({withdrawal}) {
 
   const [filters, setFilters] = useState(defaultFilters);
 
-  const { transactionsResults } = useGetTransactions({
+  const { transactionsResults , refetch } = useGetTransactions({
     transaction_type: withdrawal ? "WITHDRAWAL" : "PAYMENT_ORDER,PAYMENT_SUCCESS,PAYMENT_FAILED",
     status: filters.status === 'all' ? 'PENDING,COMPLETED,CANCELLED' : filters.status
   });
@@ -273,6 +273,7 @@ export default function WithdrawalListView({withdrawal}) {
                         onDeleteRow={() => handleDeleteRow(row.id)}
                         onEditRow={() => handleEditRow(row.id)}
                         withdrawal={withdrawal}
+                        refetch={refetch}
                       />
                     ))}
 
